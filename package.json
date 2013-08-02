@@ -1,0 +1,31 @@
+{
+  "name": "pass-gen",
+  "version": "0.0.0",
+  "description": "An easy-to-use command-line password generator",
+  "main": "lib/pass.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": "git://github.com/ahultgren/node-password-generator.git",
+  "keywords": [
+    "password",
+    "generator",
+    "command-line",
+    "terminal"
+  ],
+  "author": "Andreas Hultgren <me@andreashultgren.se> (http://andreashultgren.se)",
+  "license": "MIT",
+  "preferGlobal": true,
+  "bin": {
+    "passgen": "bin/passgen"
+  },
+  "dependencies": {
+    "mersenne": "0.0.3",
+    "commander": "~2.0.0"
+  },
+  "devDependencies": {
+    "chai": "~1.7.2",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.2"
+  }
+}

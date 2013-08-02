@@ -1,0 +1,48 @@
+#!/usr/bin/env node
+
+"use strict";
+
+var pass = require('../lib/passgen'),
+    pkg = require('../package.json'),
+    program, args;
+
+
+/* API
+============================================================================= */
+
+program = require('commander')
+  .version(pkg.version)
+  .option('-n --numbers', 'Use 0-9')
+  .option('-w --ascii', 'Use a-z')
+  .option('-u --ASCII', 'Use A-Z')
+  .option('-s --special', 'Use special ASCII characters such as .,_:;@...')
+  .option('-W --latin', 'Use Latin-1 chars such as åöäé...')
+  .option('-U --Latin', 'Use uppercase Latin-1 chars such as ÅÖÄÉ...')
+  .option('-S --Special', 'Use special Latin-1 chars such as £§±©...')
+  .option('-a --ambiguous', 'Exclude ambiguous characters such as [space]"oO0...')
+  .option('-x --extra <custom charset>', 'Use a custom set')
+  .option('-l --length <integer>', 'Set number of characters, Default: 30', parseInt)
+  .parse(process.argv);
+
+
+/* Extract params into a settings-object
+============================================================================= */
+
+args = (function (program) {
+  var args = {};
+
+  program.options.forEach(function (option) {
+    var name = option.long.substring('2');
+
+    if(name in program && typeof program[name] !== 'function') {
+      args[name] = program[name];
+    }
+  });
+
+  return args;
+}(program));
+
+process.stdout.write(pass(args));
+
+//## Is this required to not get command prompt on the same line?
+process.stdout.write('\n');
