@@ -2,7 +2,7 @@
 
 #### A customizable command-line/terminal password generator
 
-_It works programatically in node and in the browser too!_
+_It works programmatically in node and in the browser too!_
 
 
 Generate human-readable<sup>1</sup> passwords quickly and easily and specify what set of characters you want to generate the password from. By default it uses the full Latin-1 charset (execept for some ambiguous characters such as space and iIl etc) to maximize entropy.
@@ -87,7 +87,7 @@ $ passgen -h
         * length
     * length (Int) Number of characters in password
 
-See [command-line options](#command-line) for what these options do
+See [command-line options](#command-line-api) for what these options do
 
 
 #### Node examples
