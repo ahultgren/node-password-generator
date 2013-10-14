@@ -4,6 +4,7 @@
 
 var pass = require('../lib/passgen'),
     pkg = require('../package.json'),
+    inquirer = require('inquirer'),
     program, args;
 
 
@@ -22,6 +23,7 @@ program = require('commander')
   .option('-a --ambiguous', 'Exclude ambiguous characters such as [space]"oO0...')
   .option('-x --extra <custom charset>', 'Use a custom set')
   .option('-l --length <integer>', 'Set number of characters, Default: 30', parseInt)
+  .option('-i --interactive', 'Interactive mode')
   .parse(process.argv);
 
 
@@ -42,7 +44,61 @@ args = (function (program) {
   return args;
 }(program));
 
-process.stdout.write(pass(args));
+if(args.interactive) {
+  //## Not sure why I have to delete an extra option
+  delete args.interactive;
 
-//## Is this required to not get command prompt on the same line?
-process.stdout.write('\n');
+  inquirer.prompt([
+    {
+      type: 'checkbox',
+      name: 'include',
+      message: 'Choose the charsets you want to generate the password from:',
+      choices: ['numbers', 'ascii', 'ASCII', 'special', 'latin', 'Latin', 'Special']
+    },
+    {
+      type: 'confirm',
+      name: 'ambiguous',
+      message: 'Do you want to exclude ambiguous characters?',
+      default: true
+    },
+    {
+      type: 'input',
+      name: 'extra',
+      message: 'Include these special characters:'
+    },
+    {
+      type: 'input',
+      name: 'length',
+      message: 'Length of the password:',
+      default: 30
+    }
+  ], function (answers) {
+    var args = {};
+
+    answers.include.forEach(function (chosen) {
+      args[chosen] = true;
+    });
+
+    if(answers.ambiguous) {
+      args.ambiguous = true;
+    }
+
+    if(answers.extra) {
+      args.extra = answers.extra;
+    }
+
+    args.length = answers.length;
+
+    echo(pass(args));
+  });
+}
+else {
+  echo(pass(args));
+}
+
+function echo (password) {
+  process.stdout.write(password);
+
+  //## Is this required to not get command prompt on the same line?
+  process.stdout.write('\n');
+}
