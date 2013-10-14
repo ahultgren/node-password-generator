@@ -2,7 +2,7 @@
   "name": "pass-gen",
   "version": "0.0.0",
   "description": "An easy-to-use command-line password generator",
-  "main": "lib/pass.js",
+  "main": "lib/passgen",
   "scripts": {
     "test": "make test"
   },
@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "mersenne": "0.0.3",
-    "commander": "~2.0.0"
+    "commander": "~2.0.0",
+    "inquirer": "~0.3.4"
   },
   "devDependencies": {
     "chai": "~1.7.2",
