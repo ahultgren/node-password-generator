@@ -68,6 +68,7 @@ $ passgen -h
     -a --ambiguous               Exclude ambiguous characters such as [space]"oO0...
     -x --extra <custom charset>  Use a custom set
     -l --length <integer>        Set number of characters, Default: 30
+    -i --interactive             Interactive mode
 ```
 
 
